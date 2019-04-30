@@ -38,20 +38,30 @@ class User extends Authenticatable
 
     public function profile()
     {
-//        DB::listen(function($sql) {
-//            var_dump($sql->sql, $sql->bindings);
-//        });
-        //DB::enableQueryLog();
-        // query blah blah
-        //DB::getQueryLog();
+        /*
+        DB::listen(function($sql) {
+            var_dump($sql->sql, $sql->bindings);
+        });
+        DB::enableQueryLog();
+         query blah blah
+        DB::getQueryLog();
 
-//        select * from `profiles` where `profiles`.`user_id` = ? and `profiles`.`user_id` is not null limit 1
+        select * from `profiles` where `profiles`.`user_id` = ? and `profiles`.`user_id` is not null limit 1
+
+        factory(App\User::class)->create();
+
+        */
         return $this->hasOne(Profile::class);
     }
 
     public function experience()
     {
         return $this->hasOne(Experience::class);
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
     }
 
     public function achievements()
