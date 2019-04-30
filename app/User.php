@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -39,20 +38,33 @@ class User extends Authenticatable
 
     public function profile()
     {
+//        DB::listen(function($sql) {
+//            var_dump($sql->sql, $sql->bindings);
+//        });
+        //DB::enableQueryLog();
+        // query blah blah
+        //DB::getQueryLog();
+
+//        select * from `profiles` where `profiles`.`user_id` = ? and `profiles`.`user_id` is not null limit 1
         return $this->hasOne(Profile::class);
+    }
+
+    public function experience()
+    {
+        return $this->hasOne(Experience::class);
     }
 
     public function achievements()
     {
         return [
             [
-                'name' =>  'forwasrd',
-                'title' => 'cors token'
+                'name'  => 'forwasrd',
+                'title' => 'cors token',
             ],
             [
-                'name' =>  'test',
-                'title' => 'lorem ipsum'
-            ]
+                'name'  => 'test',
+                'title' => 'lorem ipsum',
+            ],
         ];
     }
 }
