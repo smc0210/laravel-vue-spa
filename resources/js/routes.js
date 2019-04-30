@@ -6,6 +6,7 @@ import Mascot from "./components/Mascot";
 import Illustrations from "./components/Illustrations";
 import Wallpapers from "./components/Wallpapers";
 import SiteStats from "./components/SiteStats";
+import Achievements from "./components/Achievements";
 import NotFound from "./components/NotFound";
 
 let LoadersAndAnimations = () =>
@@ -56,6 +57,10 @@ export default {
         {
             path: '/site-stats',
             component: SiteStats
+        },
+        {
+            path: '/achievements',
+            component: Achievements
         },
     ]
 }
