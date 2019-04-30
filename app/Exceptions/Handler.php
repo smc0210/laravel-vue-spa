@@ -2,11 +2,14 @@
 
 namespace App\Exceptions;
 
+use App\Libraries\ProtocolTrait;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
+    use ProtocolTrait;
+
     /**
      * A list of the exception types that are not reported.
      *
@@ -25,6 +28,8 @@ class Handler extends ExceptionHandler
         'password',
         'password_confirmation',
     ];
+
+    private $renderMessage;
 
     /**
      * Report or log an exception.
@@ -47,5 +52,6 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         return parent::render($request, $exception);
+        //return $this->errorResponse(['message' => $this->renderMessage]);
     }
 }

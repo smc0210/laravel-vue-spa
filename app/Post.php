@@ -6,8 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    public function comments()
+    /**
+     * Attributes to guard against mass assignment.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
+     *  The path to the project.
+     *
+     * @return string
+     */
+    public function path()
     {
-        return $this->hasMany(Comment::class);
+        return "/posts/{$this->id}";
     }
 }

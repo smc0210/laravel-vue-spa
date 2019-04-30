@@ -14,6 +14,10 @@ Route::get('/info', function () {
     phpinfo();
 });
 
-Route::get('/{any}', function () {
-    return view('app');
-})->where('any', '.*');
+
+Route::resource('/posts', 'PostController');
+
+//
+//Route::get('/{any}', function () {
+//    return view('app');
+//})->where('any', '.*');
