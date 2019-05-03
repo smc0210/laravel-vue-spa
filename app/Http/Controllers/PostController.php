@@ -14,7 +14,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('post.index');
+        $posts = Post::all();
+
+        return view('post.index', compact('posts'));
     }
 
     /**
@@ -31,69 +33,66 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        $validator = request()->validate([
-            'title' => 'required|max:50',
-            'body' => 'required|max:255'
-        ]);
+        Post::create($this->validateRequest());
 
-        dd($validator);
-
-        $post = new Post;
-        $post->title = $request->title;
-        $post->body = $request->body;
-
-
-        return redirect($post->path());
+        return redirect('/posts');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Post  $post
+     * @param \App\Post $post
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Post $post)
     {
-        //
+//        $this->authorize('update', $post);
+//        dd(auth()->user());
+
+        return view('post.show', compact('post'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Post  $post
+     * @param Post $post
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Post $post)
     {
-        //
+        return view('post.edit', compact('post'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
+     * @param Post $post
      */
-    public function update(Request $request, Post $post)
+    public function update(Post $post)
     {
-        //
+        $post->update($this->validateRequest());
+
+        return redirect('/posts');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
+     * @param Post $post
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return redirect('/posts');
     }
 
     /**
@@ -104,8 +103,8 @@ class PostController extends Controller
     protected function validateRequest()
     {
         return request()->validate([
-            'title' => 'sometimes|required',
-            'body' => 'sometimes|required'
+            'title' => 'required|min:3|max:255',
+            'body'  => 'required|max:255',
         ]);
     }
 }

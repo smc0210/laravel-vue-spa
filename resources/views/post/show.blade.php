@@ -2,7 +2,7 @@
 
 @section('content')
     <header>
-        <h1>Create</h1>
+        <h1>Show</h1>
     </header>
 
     <main>
@@ -11,12 +11,13 @@
 
             <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" name="title" class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" id="title" value="{{ old('title') }}" >
+                <input type="text" name="title" class="form-control " id="title" value="{{ $post->title }}" >
 
                 <label for="body">Body</label>
-                <textarea name="body" class="form-control {{ $errors->has('body') ? 'is-invalid' : '' }}" id="body" rows="5">{{ old('body') }}</textarea>
+                <textarea name="body" class="form-control " id="body" rows="5">{{ $post->body }}</textarea>
             </div>
 
+            {{--
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul class="mb-0">
@@ -27,7 +28,10 @@
                 </div>
             @endif
 
-            <button type="submit" class="btn btn-primary">submit</button>
+            <button type="submit" class="btn btn-primary">submit</button>--}}
+{{--            @can('update', $post)--}}
+                <a href="/posts/{{ $post->id }}/edit" class="btn btn-primary">Edit</a>
+{{--            @endcan--}}
         </form>
 
     </main>
